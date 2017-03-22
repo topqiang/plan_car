@@ -1,0 +1,77 @@
+<extend name="Public/header"/>
+<block name="main">
+		<!--<div class="driverss-head">
+			<a href="#"></a>
+			<i></i>
+			<span>车辆预约</span>
+		</div>-->
+		<div class="driverss-per  examine-per">
+			<span class="fl">
+				我的驾校
+				<i>国泰驾校</i>
+			</span>
+			<img src="__IMG__/logo1.png"/ class="fr">
+		</div>
+		<div class="driverss-cont mab50">
+			<div class="site-head">
+				<p class="driverss-site fl">
+					当前定位
+					<span class="yellow city0">天津</span>
+				</p>
+				<i class="fr iconright"></i>
+			</div>
+			<div class="driverss-item">
+
+				<volist name="schlist" id="school">
+					<div class="img">
+						<img src="{$school['logo']}"/>
+						<p>{$school['name']}</p>
+						<span linkto="{:U('Car/carlist',array('sid'=>$school['id']))}">预约</span>
+					</div>
+				</volist>
+					
+			</div>
+		</div>
+		<div class="driverss-foot">
+			<div class="fl on">
+				<img src="__IMG__/car2.png"/>
+				<p>驾校</p>
+			</div>
+			<div class="fl">
+				<img src="__IMG__/wallet.png"/>
+				<p>预约报名</p>
+			</div>
+			<div class="fl">
+				<img src="__IMG__/mine.png"/>
+				<p>我的</p>
+			</div>
+		</div>
+		<div class="hid0" id="container"></div>
+</block>
+<block name="footer">
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+	<script>
+		$(function () {
+			var citylocation,map,marker = null;
+            var init = function() {
+                var center = new qq.maps.LatLng(39.916527,116.397128);
+                map = new qq.maps.Map(document.getElementById('container'),{
+                    center: center,
+                    zoom: 13
+                });
+                //获取  城市位置信息查询 接口  
+                citylocation = new qq.maps.CityService({
+                    //设置地图
+                    map : map,
+
+                    complete : function(results){
+                        console.log(results);
+                        $(".city0").text(results.detail.name);
+                    }
+                });
+            }
+            init();
+            citylocation.searchCityByIP("{$ip}");
+		});
+	</script>
+</block>

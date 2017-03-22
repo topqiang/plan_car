@@ -82,6 +82,10 @@ return  array(
     'TMPL_PARSE_STRING'     => array(
         '__WEBROOT__' => __ROOT__,
         '__WEBPUBLIC__' => __ROOT__.'/Public',
+        '__IMG__' => __ROOT__.'/Public/Home/img',
+        '__CSS__' => __ROOT__.'/Public/Home/css',
+        '__JS__' => __ROOT__.'/Public/Home/js'
+
     ),
 
     /* URL设置 */

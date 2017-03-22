@@ -10,25 +10,18 @@ class IndexController extends BaseController {
     public function _initialize(){
     	parent::_initialize();
     	//完善购物车数量查询
+        $this -> school = D('School');
     }
 
     /**
      * 系统首页
      */
-    public function goodlist(){
-        $list = D("Toppic") -> select();
-        $this -> assign("piclist",$list);
-
-        $sid = 1;
-        session("sid",$sid);
-        $shop = M("Shop") -> where(array("id" => $sid)) -> find();
-        $where['sid'] = $sid;
+    public function school(){
         $where['status'] = array('neq',9);
-        $res = M("Goods") -> where($where) -> select();
-        if ( isset($res) ) {
-            $this -> assign('shop',$shop);
-            $this -> assign('goods',$res);
-        }
+        
+        $res = $this -> school -> where($where)->select();
+        $this -> assign('schlist',$res);
+        $this -> assign('ip', get_client_ip());
         $this -> display();
     }
 
@@ -37,6 +30,6 @@ class IndexController extends BaseController {
     }
 
     public function _empty(){
-        $this -> redirect("goodlist");
+        $this -> redirect("school");
     }
 }

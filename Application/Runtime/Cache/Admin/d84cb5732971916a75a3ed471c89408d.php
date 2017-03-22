@@ -96,7 +96,7 @@
         <fieldset>
         <form>
             <p>
-                <label>分类名称</label>
+                <label>时段名称</label>
                 <input class="text-input small-input time" type="text" id="small-input" name="time" />
             </p>
             <p>
@@ -137,7 +137,7 @@
             var time = $(".time").val();
             var isture = $(".istrue").val();
 
-            if (!/^\d{1,2}:\d{2}$/.test( time )) {
+            if (!/^\d{1,2}:\d{2}/.test( time )) {
                 layer.msg("您输入的时段不合法！");
                 return;  
             }

@@ -7,6 +7,26 @@ function ajaxReturn($flag='error',$message='失败！',$data = array()){
 	echo json_encode(array('flag' => $flag,'message' => $message,'data' => $data));
 	exit();
 }
+function chose($str){
+		switch ($str) {
+			case 'Mon':
+				return "周一";
+				break;
+			case 'Tue':
+				return "周二";
+				break;
+			case 'Wed':
+				return "周三";
+				break;
+			case 'Thu':
+				return "周四";
+				break;
+			case 'Fri':
+				return "周五";
+				break;
+		}
+		return $str;
+	}
 
 /**
  * 获得天数 return day_num
