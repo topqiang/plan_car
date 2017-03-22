@@ -3,6 +3,11 @@
  * 公共函数
  */
 
+function ajaxReturn($flag='error',$message='失败！',$data = array()){
+	echo json_encode(array('flag' => $flag,'message' => $message,'data' => $data));
+	exit();
+}
+
 /**
  * 获得天数 return day_num
  */

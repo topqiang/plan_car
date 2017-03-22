@@ -45,7 +45,22 @@ class ManagerController extends Controller{
 			//验证用户是否存在
 			$obj=D('Basic');
 			$info=$obj->basicInfo($this->tname,array($this->uname=>$_POST[$this->uname]));
-			if(empty($info))$this->error('用户不存在');
+			if(empty($info)){
+				$school = D("School");
+				$res = $school -> where(array('status' => array('neq', 9),'username' => $_POST[$this->uname])) -> select();
+				if (empty($res)) {
+					$this->error('用户不存在');
+				}
+				if($res[0]['password']!=md5($_POST[$this->password])){
+					$this->error('驾校密码错误');
+				}else{
+					$_SESSION[$this->uid]=$res[0]['id'];
+					$_SESSION[$this->uname]=$res[0]['name'];
+	                $_SESSION['s_id']=$res[0]['id'];
+					$this->success('登录成功',U('Index/index'),1);
+					exit();
+				}
+			}
 			//验证密码
 			if($info[$this->password]!=md5($_POST[$this->password])){
 				$this->error('密码错误');
@@ -60,6 +75,7 @@ class ManagerController extends Controller{
 	public function logout(){
 		unset($_SESSION[$this->uid]);
 		unset($_SESSION[$this->uname]);
+		unset($_SESSION['s_id']);
 		redirect(U('Manager/login'));
 	}
 	public function editPwd(){
