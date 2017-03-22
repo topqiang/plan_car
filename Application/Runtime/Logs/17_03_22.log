@@ -5605,3 +5605,52 @@ INFO: [ app_end ] --START--
 INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000327s ]
 INFO: [ app_end ] --END-- [ RunTime:0.000350s ]
 
+[ 2017-03-22T13:06:30+08:00 ] ::1 /plancar/index.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000195s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000228s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000249s ]
+SQL: SHOW COLUMNS FROM `car_gleygood` [ RunTime:0.002047s ]
+ERR: 1146:Table 'plan_car.car_gleygood' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `car_gleygood`
+SQL: SELECT `goodnum`,`gprice` FROM `car_gleygood` WHERE ( `glfromuser` = 1 )  [ RunTime:0.000169s ]
+ERR: 1146:Table 'plan_car.car_gleygood' doesn't exist
+ [ SQL语句 ] : SELECT `goodnum`,`gprice` FROM `car_gleygood` WHERE ( `glfromuser` = 1 ) 
+NOTIC: [2] Invalid argument supplied for foreach() /Applications/XAMPP/xamppfiles/htdocs/plancar/Application/Home/Controller/BaseController.class.php 第 24 行.
+
+[ 2017-03-22T13:06:30+08:00 ] ::1 /plancar/index.php?s=/Index/goodlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000296s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000454s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000493s ]
+SQL: SHOW COLUMNS FROM `car_gleygood` [ RunTime:0.002700s ]
+ERR: 1146:Table 'plan_car.car_gleygood' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `car_gleygood`
+SQL: SELECT `goodnum`,`gprice` FROM `car_gleygood` WHERE ( `glfromuser` = 1 )  [ RunTime:0.000411s ]
+ERR: 1146:Table 'plan_car.car_gleygood' doesn't exist
+ [ SQL语句 ] : SELECT `goodnum`,`gprice` FROM `car_gleygood` WHERE ( `glfromuser` = 1 ) 
+NOTIC: [2] Invalid argument supplied for foreach() /Applications/XAMPP/xamppfiles/htdocs/plancar/Application/Home/Controller/BaseController.class.php 第 24 行.
+SQL: SHOW COLUMNS FROM `car_toppic` [ RunTime:0.002929s ]
+ERR: 1146:Table 'plan_car.car_toppic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `car_toppic`
+SQL: SELECT * FROM `car_toppic`  [ RunTime:0.000163s ]
+ERR: 1146:Table 'plan_car.car_toppic' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `car_toppic` 
+SQL: SHOW COLUMNS FROM `car_shop` [ RunTime:0.002324s ]
+ERR: 1146:Table 'plan_car.car_shop' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `car_shop`
+SQL: SELECT * FROM `car_shop` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000292s ]
+ERR: 1146:Table 'plan_car.car_shop' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `car_shop` WHERE ( `id` = 1 ) LIMIT 1  
+SQL: SHOW COLUMNS FROM `car_goods` [ RunTime:0.002363s ]
+ERR: 1146:Table 'plan_car.car_goods' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `car_goods`
+SQL: SELECT * FROM `car_goods` WHERE ( `sid` = 1 ) AND ( `status` <> 9 )  [ RunTime:0.000209s ]
+ERR: 1146:Table 'plan_car.car_goods' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `car_goods` WHERE ( `sid` = 1 ) AND ( `status` <> 9 ) 
+ERR: 模板不存在:./Application/Home/View/Index/goodlist.html
+
