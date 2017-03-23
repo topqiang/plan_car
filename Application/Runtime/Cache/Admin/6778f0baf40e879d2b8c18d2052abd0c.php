@@ -51,9 +51,12 @@
 				<li>
 					<a href="#" class="nav-top-item">用户管理</a>
 					<ul>
-                        <?php if($_SESSION['g_id'] != 3): ?><li>
+						<li>
                             <a href="<?php echo U('User/userlist');?>" target="main">用户列表</a>
-                        </li><?php endif; ?>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('User/msg');?>" target="main">用户反馈</a>
+                        </li>
 					</ul>
 				</li>
 				<li>

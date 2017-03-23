@@ -24,13 +24,15 @@
 		</div>-->
 		<div class="city-head">
 			<div>
-				<input type="search" placeholder="输入城市搜索"/>
+			<form action="<?php echo U('Index/school');?>" method="post">
+				<input type="search" name="city" placeholder="输入城市搜索"/>
+			</form>
 			</div>
 			<p>当前定位<span class="yellow city0"></span></p>
 		</div>
 		<div class="city-already">
 			<p>已开通城市</p>
-			<ul>
+			<ul class="findcity">
 				<?php if(is_array($citylist)): $i = 0; $__LIST__ = $citylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$city): $mod = ($i % 2 );++$i;?><li><?php echo ($city['city']); ?></li><?php endforeach; endif; else: echo "" ;endif; ?>
 			</ul>
 		</div>
@@ -61,6 +63,13 @@
             init();
             citylocation.searchCityByIP("<?php echo ($ip); ?>");
 		});
+
+		$(".findcity li").on('click',function () {
+			var city = $(this).text();
+			if (city) {
+				window.location.href = "<?php echo U('Index/school');?>/city/"+city;
+			}
+		})
 	</script>
 
     </body>

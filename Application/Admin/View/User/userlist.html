@@ -35,12 +35,12 @@
                     <thead>
                     <tr>
                         <th width="5%">ID</th>
-                        <th width="5%">姓名</th>
+                        <th width="10%">姓名</th>
                         <th width="10%">电话</th>
-                        <th width="50%">地址</th>
-                        <th width="5%">性别</th>
-                        <th width="5%">余额</th>
-                        <th width="10%">创建时间</th>
+                        <th width="10%">昵称</th>
+                        <th width="10%">头像</th>
+                        <th width="10%">所报驾校</th>
+                        <th width="10%">状态</th>
                         <th width="10%">操作</th>
                     </tr>
                     </thead>
@@ -52,24 +52,24 @@
                             <td>{$user.id}</td>
                             <td>{$user.name}</td>
                             <td>
-                                {$user.tel}
+                                {$user.phone}
                             </td>
                             <td>
-                                {$user.address}
+                                {$user.nick_name}
                             </td>
                             <td>
-                                {$user.sex}
+                                <img src="__ROOT__{$user.head_pic}" height="40"/>
                             </td>
                             <td>
-                                {$user.balance}
+                                {$user.sname}
                             </td>
                             <td>
-                                {$user.create_time|date="y-m-d H:m:i"}
+                                <if condition="$user['istrue'] eq 1">已审核<else/>未审核</if>
                             </td>
                             <td>
-                                <!--<a href="{:U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']))}" title="编辑">
+                                <a href="{:U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']))}" title="编辑">
                                     <img src="__WEBPUBLIC__/Admin/images/icons/pencil.png" width="16" height="18" alt="编辑" />
-                                </a>-->
+                                </a>
                                 <a href="###" class="del" title="删除" uid="{$user.id}">
                                     <img src="__WEBPUBLIC__/Admin/images/icons/cross.png" alt="删除" />
                                 </a>

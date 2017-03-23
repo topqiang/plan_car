@@ -94,6 +94,7 @@
 					"success" : function ( res ) {
 						if ( res.flag == "success" ) {
 							console.log(res);
+							window.location.href = "<?php echo U('User/userinfo');?>/id/"+res.data;
 						}else{
 							layer.msg(res.message);
 						}

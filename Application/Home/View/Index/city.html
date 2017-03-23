@@ -7,13 +7,15 @@
 		</div>-->
 		<div class="city-head">
 			<div>
-				<input type="search" placeholder="输入城市搜索"/>
+			<form action="{:U('Index/school')}" method="post">
+				<input type="search" name="city" placeholder="输入城市搜索"/>
+			</form>
 			</div>
 			<p>当前定位<span class="yellow city0"></span></p>
 		</div>
 		<div class="city-already">
 			<p>已开通城市</p>
-			<ul>
+			<ul class="findcity">
 				<volist name="citylist" id="city">
 					<li>{$city['city']}</li>
 				</volist>
@@ -46,5 +48,12 @@
             init();
             citylocation.searchCityByIP("{$ip}");
 		});
+
+		$(".findcity li").on('click',function () {
+			var city = $(this).text();
+			if (city) {
+				window.location.href = "{:U('Index/school')}/city/"+city;
+			}
+		})
 	</script>
 </block>

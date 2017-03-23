@@ -52,11 +52,12 @@
 				<li>
 					<a href="#" class="nav-top-item">用户管理</a>
 					<ul>
-                        <if condition="$_SESSION['g_id'] neq 3">
 						<li>
                             <a href="{:U('User/userlist')}" target="main">用户列表</a>
                         </li>
-                        </if>
+                        <li>
+                            <a href="{:U('User/msg')}" target="main">用户反馈</a>
+                        </li>
 					</ul>
 				</li>
 				<li>

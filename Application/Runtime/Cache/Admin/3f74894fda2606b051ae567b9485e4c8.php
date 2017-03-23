@@ -35,12 +35,12 @@
                     <thead>
                     <tr>
                         <th width="5%">ID</th>
-                        <th width="5%">姓名</th>
+                        <th width="10%">姓名</th>
                         <th width="10%">电话</th>
-                        <th width="50%">地址</th>
-                        <th width="5%">性别</th>
-                        <th width="5%">余额</th>
-                        <th width="10%">创建时间</th>
+                        <th width="10%">昵称</th>
+                        <th width="10%">头像</th>
+                        <th width="10%">所报驾校</th>
+                        <th width="10%">状态</th>
                         <th width="10%">操作</th>
                     </tr>
                     </thead>
@@ -51,24 +51,24 @@
                             <td><?php echo ($user["id"]); ?></td>
                             <td><?php echo ($user["name"]); ?></td>
                             <td>
-                                <?php echo ($user["tel"]); ?>
+                                <?php echo ($user["phone"]); ?>
                             </td>
                             <td>
-                                <?php echo ($user["address"]); ?>
+                                <?php echo ($user["nick_name"]); ?>
                             </td>
                             <td>
-                                <?php echo ($user["sex"]); ?>
+                                <img src="/plancar<?php echo ($user["head_pic"]); ?>" height="40"/>
                             </td>
                             <td>
-                                <?php echo ($user["balance"]); ?>
+                                <?php echo ($user["sname"]); ?>
                             </td>
                             <td>
-                                <?php echo (date($user["create_time"],"y-m-d H:m:i")); ?>
+                                <?php if($user['istrue'] == 1): ?>已审核<?php else: ?>未审核<?php endif; ?>
                             </td>
                             <td>
-                                <!--<a href="<?php echo U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']));?>" title="编辑">
+                                <a href="<?php echo U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']));?>" title="编辑">
                                     <img src="/plancar/Public/Admin/images/icons/pencil.png" width="16" height="18" alt="编辑" />
-                                </a>-->
+                                </a>
                                 <a href="###" class="del" title="删除" uid="<?php echo ($user["id"]); ?>">
                                     <img src="/plancar/Public/Admin/images/icons/cross.png" alt="删除" />
                                 </a>

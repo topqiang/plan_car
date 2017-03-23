@@ -33,7 +33,7 @@
 			<div class="site-head" linkto="<?php echo U('Index/city');?>">
 				<p class="driverss-site fl">
 					当前定位
-					<span class="yellow city0">天津</span>
+					<span class="yellow city0"></span>
 				</p>
 				<i class="fr iconright"></i>
 			</div>
