@@ -1,17 +1,28 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class UserController extends Controller{
+
+class UserController extends BaseController{
 	public function _initialize(){
+		parent::_initialize();
 		$this->user=D('Usersc');
 		$this ->users = D('User');
-	}
-	public function userinfo(){
 		$where['id'] = session("userid");
 		$res = $this -> user -> where( $where ) -> select();
 		if ($res) {
 			$this -> assign('user',$res[0]);
 		}
+	}
+	public function userinfo(){
+
+		$this -> display();
+	}
+
+	public function user(){
+		$order = D('Orderusc');
+		$wher['uid'] = session('userid');
+		$orderlist = $order -> where( $wher ) -> order('c_time desc') -> select();
+		$this -> assign('orderlist',$orderlist);
 		$this -> display();
 	}
 

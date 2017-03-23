@@ -18,6 +18,16 @@ class IndexController extends BaseController {
         $this -> assign('schlist',$res);
     }
 
+    public function city(){
+        $where['status'] = array('neq',9);
+
+        $citylist = $this -> school -> distinct(true) -> field('city') -> where( $where ) ->select();
+        dump($citylist);
+        $this -> assign('ip', get_client_ip());
+        $this -> assign('citylist',$citylist);
+        $this -> display();
+    }
+
     /**
      * 系统首页
      */
@@ -28,6 +38,10 @@ class IndexController extends BaseController {
     }
 
     public function list(){
+        $this -> display();
+    }
+
+    public function introduce(){
         $this -> display();
     }
 

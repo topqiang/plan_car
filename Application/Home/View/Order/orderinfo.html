@@ -1,0 +1,56 @@
+<extend name="Public/header"/>
+<block name="main">
+	<div class="coach-head">
+		<p class="yellow">{$order['cname']}</p>
+		<p>车牌号&nbsp;&nbsp;{$order['carcode']}</p>
+		<p>若您预约了此车，请您在预约时间内准时到达训练场。若临时有事，请致电（{$order['tel']}）取消预约</p>
+	</div>
+	<div class="coach-cont">
+		<div class="coach-item pad3 bgw mab10">
+			<div class="coach-per ovh">
+				<img src="__ROOT__{$order['head_pic']}"/ class="fl">
+				<div class="coach-word fl">
+					<p class="fs16">{$order['uname']}</p>
+					<p class="fs13">{$order['phone']}</p>
+				</div>
+				<div class="coach-check fr centen">
+					<img src="__IMG__/check.png"/>
+					<p class="fs13">{$order['sname']}</p>
+				</div>
+			</div>
+			<div class="coach-time fs14">
+				<span class="fs16">预约时间</span>
+				{$order['date']}&nbsp;&nbsp;{$order['time']}
+			</div>
+		</div>
+		<div class="coach-remark bgw">
+			<textarea placeholder="请填写备注" class="fs16 remark"></textarea>
+		</div>
+	</div>
+	<div class="coach-foot">
+		<span class="bgyellow disi fs15 subbtn">立即预约</span>
+		<p class="fs12">提交前请您仔细核对您的信息，确保无误后提交</p>
+	</div>
+</block>
+<block name="footer">
+	<script type="text/javascript">
+	$(".subbtn").on('click',function(){
+		var id = "{$order['id']}";
+		var remark = $(".remark").val();
+		if (id && remark) {
+			$.ajax({
+				"url": "{:U('Order/addremark')}",
+				"type": "post",
+				"dataType": "json",
+				"data" : {id:id,remark:remark},
+				"success":function ( res ) {
+					layer.msg( res.message );
+					if ( res.flag == "success") {
+						window.location.href = "{:U('User/user')}";
+					}
+				}
+			});
+		}
+	});
+	</script>
+</block>

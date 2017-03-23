@@ -20,8 +20,8 @@
 	<div class="person-head pad0-3 bgw">
 		<div class="ovh pad10-0 borb1 pore">
 			<span class="fl">头像</span>
-			<img src="<?php echo ($user['head_pic']); ?>" class="fr viewhead"/>
-			<input type="file" / class="per-img">
+			<img src="/plancar/<?php echo ($user['head_pic']); ?>" class="fr viewhead"/>
+			<input type="file" / class="per-img viewhead">
 		</div>
 		<div class="ovh">
 			<span class="fl">昵称</span>
@@ -53,10 +53,10 @@
 			</div>			
 		</div>
 	</div>
-	<div class="coach-foot">
+	<?php if($user['istrue'] == 0): ?><div class="coach-foot">
 		<span class="bgyellow disi fs15 subbtn">提交审核</span>
 		<p class="fs12">提交前请您仔细核对您的信息，确保无误后提交</p>
-	</div>
+	</div><?php endif; ?>
 
     
 	<script type="text/javascript">
@@ -113,7 +113,7 @@
                     console.log(data.message);
                     if(data['flag'] == "success"){
                         $(".viewhead").attr("id",data['data']['id']);
-                        $(".viewhead").attr("src",data['data']['path']);
+                        $(".viewhead").attr("src","/plancar/"+data['data']['path']);
                     }
                 }
             });

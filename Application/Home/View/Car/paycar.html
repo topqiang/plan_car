@@ -34,9 +34,13 @@
 </block>
 <block name="footer">
 	<script type="text/javascript">
-		$(".time-item span.on").on('click',function(){
-			$(this).addClass("bor1yel").siblings().removeClass("bor1yel");
-		});
+
+		function bindclick() {
+			$(".time-item span.on").on('click',function(){
+				$(this).addClass("bor1yel").siblings().removeClass("bor1yel");
+			});
+		}
+		bindclick();
 		var cid = "{$car.id}";
 		var sid = "{$car.sid}";
 
@@ -57,6 +61,7 @@
 								str += '<span timeid="'+time['id']+'" class="'+(time['istrue'] ? 'on' : '')+'">'+time['time']+'</span>';
 							}
 							$(".time-item").html(str);
+							bindclick();
 						}else{
 							layer.msg( res.message );
 						}
@@ -76,6 +81,7 @@
 					"success" : function ( res ) {
 						if ( res.flag == "success" ) {
 							console.log(res);
+							window.location.href = "{:U('User/userinfo')}/id/"+res.data;
 						}else{
 							layer.msg(res.message);
 						}

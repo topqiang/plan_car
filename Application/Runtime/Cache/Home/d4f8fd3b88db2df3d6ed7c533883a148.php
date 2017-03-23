@@ -22,49 +22,22 @@
 			<i></i>
 			<span>车辆预约</span>
 		</div>-->
-		<div class="driverss-per <?php if(!empty($user["sname"])): ?>examine-per<?php endif; ?>" linkto="<?php echo U('User/userinfo');?>">
-			<span class="fl">
-				我的驾校
-				<i><?php if(empty($user["sname"])): ?>立即审核<?php else: echo ($user["sname"]); endif; ?></i>
-			</span>
-			<img src="<?php if(empty($user["logo"])): ?>/plancar/Public/Home/img/car1.png<?php else: echo ($user["logo"]); endif; ?>"/ class="fr">
+		<div class="city-head">
+			<div>
+				<input type="search" placeholder="输入城市搜索"/>
+			</div>
+			<p>当前定位<span class="yellow city0"></span></p>
 		</div>
-		<div class="driverss-cont mab50">
-			<div class="site-head" linkto="<?php echo U('Index/city');?>">
-				<p class="driverss-site fl">
-					当前定位
-					<span class="yellow city0">天津</span>
-				</p>
-				<i class="fr iconright"></i>
-			</div>
-			<div class="driverss-item">
-
-				<?php if(is_array($schlist)): $i = 0; $__LIST__ = $schlist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$school): $mod = ($i % 2 );++$i;?><div class="img">
-						<img src="<?php echo ($school['logo']); ?>"/>
-						<p><?php echo ($school['name']); ?></p>
-						<span linkto="<?php echo U('Car/carlist',array('sid'=>$school['id']));?>">预约</span>
-					</div><?php endforeach; endif; else: echo "" ;endif; ?>
-					
-			</div>
-		</div>
-		<div class="driverss-foot">
-			<div class="fl on">
-				<img src="/plancar/Public/Home/img/car2.png"/>
-				<p>驾校</p>
-			</div>
-			<div class="fl" linkto="<?php echo U('Index/introduce');?>">
-				<img src="/plancar/Public/Home/img/wallet.png"/>
-				<p>预约报名</p>
-			</div>
-			<div class="fl" linkto="<?php echo U('User/user');?>">
-				<img src="/plancar/Public/Home/img/mine.png"/>
-				<p>我的</p>
-			</div>
+		<div class="city-already">
+			<p>已开通城市</p>
+			<ul>
+				<?php if(is_array($citylist)): $i = 0; $__LIST__ = $citylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$city): $mod = ($i % 2 );++$i;?><li><?php echo ($city['city']); ?></li><?php endforeach; endif; else: echo "" ;endif; ?>
+			</ul>
 		</div>
 		<div class="hid0" id="container"></div>
 
     
-<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 	<script>
 		$(function () {
 			var citylocation,map,marker = null;

@@ -13,7 +13,7 @@
 			<img src="<if condition='empty($user["logo"])'>__IMG__/car1.png<else/>{$user["logo"]}</if>"/ class="fr">
 		</div>
 		<div class="driverss-cont mab50">
-			<div class="site-head">
+			<div class="site-head" linkto="{:U('Index/city')}">
 				<p class="driverss-site fl">
 					当前定位
 					<span class="yellow city0">天津</span>
@@ -37,11 +37,11 @@
 				<img src="__IMG__/car2.png"/>
 				<p>驾校</p>
 			</div>
-			<div class="fl">
+			<div class="fl" linkto="{:U('Index/introduce')}">
 				<img src="__IMG__/wallet.png"/>
 				<p>预约报名</p>
 			</div>
-			<div class="fl">
+			<div class="fl" linkto="{:U('User/user')}">
 				<img src="__IMG__/mine.png"/>
 				<p>我的</p>
 			</div>

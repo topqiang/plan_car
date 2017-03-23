@@ -8,6 +8,8 @@
         <script type="text/javascript" src="/plancar/Public/Home/js/jquery.min.js"></script>
         <script type="text/javascript" src="/plancar/Public/Home/js/car.js"></script>
         <script type="text/javascript" src="/plancar/Public/Home/js/public.js"></script>
+        <script type="text/javascript" src="/plancar/Public/Home/js/public.js"></script>
+        <script type="text/javascript" src="/plancar/Public/Admin/js/layer/layer.js"></script>
 
         <title>驾校</title>
         <style type="text/css">

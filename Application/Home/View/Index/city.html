@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1"/>
-		<link rel="stylesheet" href="car.css" />
-		<script type="text/javascript" src="jquery.js"></script>
-		<script type="text/javascript" src="car.js"></script>
-		<title>城市</title>
-	</head>
-	<body>
+<extend name="Public/header"/>
+<block name="main">
 		<!--<div class="driverss-head">
 			<a href="#"></a>
 			<i></i>
@@ -17,41 +7,44 @@
 		</div>-->
 		<div class="city-head">
 			<div>
-				<input type="text" placeholder="输入城市搜索"/>
+				<input type="search" placeholder="输入城市搜索"/>
 			</div>
-			<p>当前定位<span class="yellow">天津</span></p>
+			<p>当前定位<span class="yellow city0"></span></p>
 		</div>
 		<div class="city-already">
 			<p>已开通城市</p>
 			<ul>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>
-				<li>北京</li>				
+				<volist name="citylist" id="city">
+					<li>{$city['city']}</li>
+				</volist>
 			</ul>
 		</div>
-		
-	</body>
-</html>
+		<div class="hid0" id="container"></div>
+</block>
+<block name="footer">
+	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+	<script>
+		$(function () {
+			var citylocation,map,marker = null;
+            var init = function() {
+                var center = new qq.maps.LatLng(39.916527,116.397128);
+                map = new qq.maps.Map(document.getElementById('container'),{
+                    center: center,
+                    zoom: 13
+                });
+                //获取  城市位置信息查询 接口  
+                citylocation = new qq.maps.CityService({
+                    //设置地图
+                    map : map,
+
+                    complete : function(results){
+                        console.log(results);
+                        $(".city0").text(results.detail.name);
+                    }
+                });
+            }
+            init();
+            citylocation.searchCityByIP("{$ip}");
+		});
+	</script>
+</block>
