@@ -11,23 +11,26 @@ class IndexController extends BaseController {
     	parent::_initialize();
     	//完善购物车数量查询
         $this -> school = D('School');
+        $where['status'] = array('neq',9);
+        
+        
+        $res = $this -> school -> where($where)->select();
+        $this -> assign('schlist',$res);
     }
 
     /**
      * 系统首页
      */
     public function school(){
-        $where['status'] = array('neq',9);
         
-        $res = $this -> school -> where($where)->select();
-        $this -> assign('schlist',$res);
         $this -> assign('ip', get_client_ip());
         $this -> display();
     }
 
-    public function result(){
+    public function list(){
         $this -> display();
     }
+
 
     public function _empty(){
         $this -> redirect("school");

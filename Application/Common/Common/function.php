@@ -24,6 +24,12 @@ function chose($str){
 			case 'Fri':
 				return "周五";
 				break;
+			case 'Sat':
+				return "周六";
+				break;
+			case 'Sun':
+				return "周日";
+				break;
 		}
 		return $str;
 	}

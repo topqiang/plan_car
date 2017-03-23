@@ -1,41 +1,89 @@
 <extend name="Public/header"/>
 <block name="main">
-		<div class="time-head">
-			<div class="school-item">
-				<img src="{$car.pic}"/ class="fl">
-				<div class="fl">
-					<p>{$car.name}</p>
-					<p>车牌号&nbsp;&nbsp;{$car.carcode}</p>
-				</div>			
-				<span class="fr on">可预约</span>
-			</div>
-		</div>
-		<div class="school-select bggreen time-select">选择时间</div>
-		<div class="time-cont">
+	<div class="time-head">
+		<div class="school-item">
+			<img src="{$car.pic}"/ class="fl">
 			<div class="fl">
-				<volist name="datelist" id="date">
-					<div class="time-date <if condition='$i eq 1'>on</if>" name="1" date="{$date['y']}/{$date['m']}/{$date['d']}" week="{$date['w']}">
-						<p>{$date['m']}月{$date['d']}</p>
-						<p>{$date['w']}</p>
-					</div>
-				</volist>	
-			</div>
-			<div class="fr">
-				<div class="time-item" forname="1">
-					<volist name="timelist" id="time">
-						<span timeid="{$time['id']}" class="on">{$time['time']}</span>
-					</volist>
+				<p>{$car.name}</p>
+				<p>车牌号&nbsp;&nbsp;{$car.carcode}</p>
+			</div>			
+			<span class="fr on">可预约</span>
+		</div>
+	</div>
+	<div class="school-select bggreen time-select">选择时间</div>
+	<div class="time-cont">
+		<div class="fl">
+			<volist name="datelist" id="date">
+				<div class="time-date <if condition='$i eq 1'>on</if>" name="1" date="{$date['y']}/{$date['m']}/{$date['d']}" week="{$date['w']}">
+					<p>{$date['m']}月{$date['d']}</p>
+					<p>{$date['w']}</p>
 				</div>
+			</volist>	
+		</div>
+		<div class="fr">
+			<div class="time-item">
+				<volist name="timelist" id="time">
+					<span timeid="{$time['id']}" <if condition='$time["istrue"]'>class="on"</if>>{$time['time']}</span>
+				</volist>
 			</div>
 		</div>
-		<div class="time-foot">
-			<span class="bgyellow">预约</span>
-		</div>
+	</div>
+	<div class="time-foot">
+		<span class="bgyellow submitorder">预约</span>
+	</div>
 </block>
 <block name="footer">
 	<script type="text/javascript">
 		$(".time-item span.on").on('click',function(){
 			$(this).addClass("bor1yel").siblings().removeClass("bor1yel");
+		});
+		var cid = "{$car.id}";
+		var sid = "{$car.sid}";
+
+		function clickafter( self ) {
+			var date = self.attr("date");	
+			if (date && cid) {
+				$.ajax({
+					"url" : "{:U('Car/getTime')}",
+					"type" : "post",
+					"dataType" : "json",
+					"data" : {date:date,cid:cid},
+					"success" : function( res ){
+						if ( res.flag == "success") {
+							var timelist = res.data;
+							var str = "";
+							for(var index in timelist){
+								var time = timelist[index];
+								str += '<span timeid="'+time['id']+'" class="'+(time['istrue'] ? 'on' : '')+'">'+time['time']+'</span>';
+							}
+							$(".time-item").html(str);
+						}else{
+							layer.msg( res.message );
+						}
+					}
+				})
+			}
+		}
+		$(".submitorder").on('click',function(){
+			var date = $(".time-date.on").attr("date");
+			var time = $(".bor1yel.on").text();
+			if (cid && sid && date && time) {
+				$.ajax({
+					"url" : "{:U('Order/addOrder')}",
+					"type" : "post",
+					"dataType" : "json",
+					"data" : {cid:cid,sid:sid,date:date,time:time},
+					"success" : function ( res ) {
+						if ( res.flag == "success" ) {
+							console.log(res);
+						}else{
+							layer.msg(res.message);
+						}
+					}
+				})
+			}else{
+				layer.msg("系统有误！");
+			}
 		});
 	</script>
 </block>

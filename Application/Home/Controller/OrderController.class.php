@@ -8,65 +8,35 @@ use Think\Controller;
 class OrderController extends BaseController{
 	public function _initialize(){
 		parent::_initialize();
+		$this -> order = D('Order');
 	}
-	public function addorder(){
-		$ajax['code'] = 0; 
-		$gley = $_POST['gley'];
-		$totalprice = $_POST['totalprice'];
-		$totalnum = $_POST['totalnum'];
-
-		if (empty($gley) || !isset($totalprice) || !isset($totalnum)) {
-			$ajax['msg'] = "服务器出错，请稍后再试！";
-			$this -> ajaxReturn(json_encode($ajax));
+	public function addOrder(){
+		$cid = $_POST['cid'];
+		$sid = $_POST['sid'];
+		$date = $_POST['date'];
+		$time = $_POST['time'];
+		$uid = session("userid");
+		$usid = session("sid");
+		if (empty($usid)) {
+			ajaxReturn("error","无绑定该驾校！");
+		}else if ($usid != $sid ) {
+			ajaxReturn("error","绑定驾校和预约驾校不一致！");
 		}
-		$fromuser = session("userid");
-		$ordname = $fromuser.date("YmdHis").rand(10000,99999);
-		$Order = D("order");
-		$userinfo = D("User") -> field('address,name,tel') -> where( array('id'=>$fromuser) ) -> select();
-		$address = $userinfo[0]['address'];
-		$addname = $userinfo[0]['name'];
-		$addtel = $userinfo[0]['tel'];
-
-
 		$data = array(
-			'sid'			=> session("sid"),
-			'ordname' 		=> $ordname,
-			'createtime' 	=> time(),
-			'updatetime' 	=> time(),
-			'type'			=> 0,
-			'fromuid'  		=> $fromuser,
-			'paymoney' 		=> $totalprice,
-			'status'		=> 0,
-			'totalnum'		=> $totalnum
+			'cid' => $cid,
+			'sid' => $sid,
+			'date' => $date,
+			'time' => $time,
+			'uid' => $uid,
+			'status' => 0,
+			'c_time' => time(),
+			'u_time' => time()
 			);
-		$data['addname'] = isset($addname) ? $addname 	: "";
-		$data['address'] = isset($address) ? $address 	: "";
-		$data['addtel']  = isset($addtel) ? $addtel 	: "";
-
-		$Order->startTrans();
-
-		$oid = $Order->add($data);
-		if (isset($oid)) {
-			$ordObj = M("Ordgood");
-			foreach ($gley as $gid => $num) {
-				$ordgood = array(
-					"gid" => $gid,
-					"oid" => $oid,
-					"num" => $num
-					);
-				if ($num > 0) {
-					$res = $ordObj ->add($ordgood);
-				}
-				if (!isset($res)) {
-					$Order -> rollback();
-					$ajax['msg'] = "下单失败！";
-					$this -> ajaxReturn(json_encode($ajax));
-				}
-			}
-			$Order -> commit();
-			$ajax['code'] = 1;
-			$ajax['oid'] = $oid;
-			$this -> ajaxReturn(json_encode($ajax));
+		$res = $this -> order -> add($data);
+		if ($res) {
+			ajaxReturn("success","添加成功！",$res);
+		}else{
+			ajaxReturn("error","添加失败！");
 		}
 	}
 	/**

@@ -6,7 +6,8 @@ class BaseController extends Controller{
 		$user = session("userid");
 		$this -> appid = "wx091dbcec9f34322f";
 		$this -> scret = "d4049d17f6780e6cee4f82870a4f3545";
-		if (!isset($user)) {
+		$this -> assign('user',array('sname'=>'topqiang','logo'=>'Uploads/shoplogo/201703/58d0d25da9eb0.png'));
+		if (empty($user)) {
 			session("userid",1);
 			// $code = session('code');
 			// if (!isset($code)) {

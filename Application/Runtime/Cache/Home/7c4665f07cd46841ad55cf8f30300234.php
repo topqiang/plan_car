@@ -28,14 +28,13 @@
 		</div>
 		<div class="school-select bgyellow">选择车辆</div>
 		<div class="school-cont">
-
 			<?php if(is_array($carlist)): $i = 0; $__LIST__ = $carlist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$car): $mod = ($i % 2 );++$i;?><div class="school-item" linkto="<?php echo U('Car/paycar',array('id'=>$car['id']));?>">
 					<img src="<?php echo ($car['pic']); ?>"/ class="fl">
 					<div class="fl">
 						<p><?php echo ($car['name']); ?></p>
 						<p>车牌号&nbsp;&nbsp;<?php echo ($car['carcode']); ?>学</p>
 					</div>			
-					<span class="fr on">可预约</span>
+					<span class="fr <?php if($car["istrue"]): ?>on<?php endif; ?>">可预约</span>
 				</div><?php endforeach; endif; else: echo "" ;endif; ?>
 		</div>
 

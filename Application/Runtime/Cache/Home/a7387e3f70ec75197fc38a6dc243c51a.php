@@ -8,6 +8,8 @@
         <script type="text/javascript" src="/plancar/Public/Home/js/jquery.min.js"></script>
         <script type="text/javascript" src="/plancar/Public/Home/js/car.js"></script>
         <script type="text/javascript" src="/plancar/Public/Home/js/public.js"></script>
+        <script type="text/javascript" src="/plancar/Public/Home/js/public.js"></script>
+        <script type="text/javascript" src="/plancar/Public/Admin/js/layer/layer.js"></script>
 
         <title>驾校</title>
         <style type="text/css">
@@ -20,12 +22,12 @@
 			<i></i>
 			<span>车辆预约</span>
 		</div>-->
-		<div class="driverss-per  examine-per">
+		<div class="driverss-per <?php if(!empty($user["sname"])): ?>examine-per<?php endif; ?>" linkto="<?php echo U('User/userinfo');?>">
 			<span class="fl">
 				我的驾校
-				<i>国泰驾校</i>
+				<i><?php if(empty($user["sname"])): ?>立即审核<?php else: echo ($user["sname"]); endif; ?></i>
 			</span>
-			<img src="/plancar/Public/Home/img/logo1.png"/ class="fr">
+			<img src="<?php if(empty($user["logo"])): ?>/plancar/Public/Home/img/car1.png<?php else: echo ($user["logo"]); endif; ?>"/ class="fr">
 		</div>
 		<div class="driverss-cont mab50">
 			<div class="site-head">

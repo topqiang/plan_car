@@ -5,12 +5,12 @@
 			<i></i>
 			<span>车辆预约</span>
 		</div>-->
-		<div class="driverss-per  examine-per">
+		<div class="driverss-per <if condition='!empty($user["sname"])'>examine-per</if>" linkto="{:U('User/userinfo')}">
 			<span class="fl">
 				我的驾校
-				<i>国泰驾校</i>
+				<i><if condition='empty($user["sname"])'>立即审核<else/>{$user["sname"]}</if></i>
 			</span>
-			<img src="__IMG__/logo1.png"/ class="fr">
+			<img src="<if condition='empty($user["logo"])'>__IMG__/car1.png<else/>{$user["logo"]}</if>"/ class="fr">
 		</div>
 		<div class="driverss-cont mab50">
 			<div class="site-head">

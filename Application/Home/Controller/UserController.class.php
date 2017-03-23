@@ -3,193 +3,70 @@ namespace Home\Controller;
 use Think\Controller;
 class UserController extends Controller{
 	public function _initialize(){
-		$this->user=D('User');
+		$this->user=D('Usersc');
+		$this ->users = D('User');
 	}
-	public function index(){
-		$code = $_GET['code'];
-		if (isset( $code )) {
-			session('code','123');
-			$base = A("Base");
-			$appid = $base->appid;
-			$scret = $base->scret;
-			$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$scret&code=$code&grant_type=authorization_code";
-			$res = $this -> curl("",$url);
-			$access = json_decode($res,true);
-			$openid = $access['openid'];
-			$where['wx_id'] = array('eq',$openid);
-			$userinfo = $this -> user ->where($where) -> select();
-			if (isset($userinfo[0]['id'])) {
-				session('userid',$userinfo[0]['id']);
-				session('wx_id',$openid);
-				session('code',null);
-				redirect('Index/index');
-			}else{
-				$getuserurl = "https://api.weixin.qq.com/sns/userinfo?access_token=".$access['access_token']."&openid=".$access['openid']."&lang=zh_CN";
-				$userinfo = $this -> curl("",$getuserurl);
-				if (isset($userinfo)) {
-					$array = json_decode($userinfo,true);
-					$userdata = array(
-					'name' => $array['nickname'],
-					'wx_id' => $array['openid'],
-					'sex' => ($array['sex'] == '1') ? "男" : "女",
-					'pic' => $array['headimgurl'],
-					'create_time' => time()
-					);
-					$userid = $this -> user ->add($userdata);
-					session('userid',$userid);
-					session('wx_id',$openid);
-					session('code',null);
-					redirect('Index/index');
-				}
-			}
+	public function userinfo(){
+		$where['id'] = session("userid");
+		$res = $this -> user -> where( $where ) -> select();
+		if ($res) {
+			$this -> assign('user',$res[0]);
 		}
-		$this->display("login");
-	}
-
-	public function register(){
-		$tel = $_POST['tel'];
-		$pwd = $_POST['pwd'];
-		$repwd = $_POST['repwd'];
-		if (!isset($tel)) {
-			$this -> display();
-			exit();
-		}
-		if ($tel != ""  && $pwd == $repwd) {
-			$where['tel'] = array('eq',$tel);
-			$res = M('User') -> field('tel') -> where( $where ) -> select();
-			if (count($res) == 1) {
-				$this -> ajaxReturn("用户已存在");
-			}else{
-				$data = array('tel' => $tel ,'pwd' => md5($pwd),'create_time' => time());
-				$result = M('User') -> add($data);
-				if (isset($result)) {
-					session("userid",$result);
-					$this -> ajaxReturn("success");
-				}
-			}
-		}else{
-			$this -> ajaxReturn("信息填写有误");
-		}
-	}
-
-	public function checkhas(){
-		$tel = $_POST['tel'];
-		$where['tel'] = array('eq',$tel);
-		$res = M('User') -> field('tel') -> where( $where ) -> select();
-		if (count($res) == 1) {
-			$this -> ajaxReturn("success");
-		}else{
-			$this -> ajaxReturn("next");
-		}
-	}
-
-	public function recharge(){
-		A('Base');
-		$this -> display();
-	}
-	public function about(){
-		$about = M('About')->select();
-		$this -> assign('about',$about[0]);
-		$this -> display();
-	}
-	public function msg(){
-		A('Base');
-		$where['status'] = array('neq','9');
-		$msgs = M('Msg') -> where($where) -> select();
-		$this -> assign('msgs' ,$msgs);
-		$this -> display();
-	}
-	public function balance(){
-		A('Base');
 		$this -> display();
 	}
 
-	public function login(){
-		$phone = $_POST['mobile'];
-		$pwd = $_POST['pwd'];
-		$where['tel'] = array('eq', $phone);
-		$res = D('User')->where($where)->select();
-		if (isset($res)) {
-			if ($res[0]['pwd'] == md5( $pwd )) {
-				session("userid",$res[0]['id']);
-				$msg = "success";
-			}else{
-				$msg = '密码不正确';
-			}
-		}else{
-			$msg = '用户不存在';	
-		}
-		$this->ajaxReturn($msg);
-	}
+	public function bindsc(){
+        $where['jschool'] = $_GET['sid'];
+        $where['id'] = session('userid');
 
+        $res = $this -> users -> save($where);
+        if ($res) {
+            $this -> redirect('User/userinfo');
+        }
+        $this -> redirect('Index/list');
+    }
 
-	public function self(){
-		A('Base');
-		$userid = session("userid");
-		$where['id'] = $userid;
-		$user = $this->user->where( $where )->select();
-		$this -> assign('user' ,$user[0]);
-		$this -> display();
-	}
+    public function change(){
+    	$data[$_POST['clum']] = $_POST['value'];
+    	$data['id'] = session('userid');
 
-	public function setself(){
-		A('Base');
-		$userid = session("userid");
-		$where['id'] = $userid;
-		$user = $this->user->where( $where )->select();
-		$this -> assign('user' ,$user[0]);
-		$this -> display();
-	}
+    	$res = $this -> users -> save($data);
+        if ($res) {
+            ajaxReturn("success","修改成功！");
+        }
+        ajaxReturn("error","修改失败！");
+    }
 
-	public function updaddress(){
-		$oid = session("oid");
-		if (isset($oid)) {
-			$addid = $_POST['id'];
-			$addinfo = D('Address') -> where("id = $addid") -> select();
-			$detailadd = $addinfo[0]['detailadd'].$addinfo[0]['numhouse'];
-			$delivertype = $_POST['delivertype'];
-			$order = array(
-				"id" => $oid,
-				"address" => $addid,
-				"detailadd" => $detailadd,
-				"delivertype" => $delivertype
-				);
-			$res = M('Order') -> save($order);
-			if (isset($res)) {
-				session("oid",null);
-				$this -> ajaxReturn(json_encode(array('oid' => $oid)));
-			}else{
-				$this -> ajaxReturn("error");
-			}
-		}else{
-			$addid = $_POST['id'];
-			$userid = session("userid");
-			$delivertype = $_POST['delivertype'];
-			$data = array('id' => $userid ,'address' => $addid , 'delivertype' => $delivertype);
-			$res = $this -> user -> save ( $data );
-			if (!empty($res)) {
-				$this -> ajaxReturn("success");
-			}else{
-				$this -> ajaxReturn("error");
-			}
-		}
-	}
-
-	public function loginout(){
-		session(null);
-		redirect(U('User/index'));
-	}
-
-	public function coupon(){
-		A('Base');
-		$uid = session('userid');
-		$ucoupon = M('Ucoupon');
-		$where['status'] = array('neq',9);
-		$where['uid'] = array('eq',$uid);
-		$res = $ucoupon -> where($where) ->order('utype asc , endtime asc') -> select();
-		$this -> assign('coupons',$res);
-		$this -> display();
-	}
+    /**
+     * 上传图片
+     */
+    public function uploadPic(){
+        $pic       = $_POST['pic'];
+        $pic_name      = $_POST['pic_name'];
+        $temp = explode('.',$pic_name);
+        $ext = uniqid().'.'.end($temp);
+        $base64    = substr(strstr($pic, ","), 1);
+        $image_res = base64_decode($base64);
+        $pic_link  = "Uploads/User/".date('Y-m-d').'/'.$ext;
+        $saveRoot = "Uploads/User/".date('Y-m-d').'/';
+        //检查目录是否存在  循环创建目录
+        if(!is_dir($saveRoot)){
+            mkdir($saveRoot, 0777, true);
+        }
+        $res = file_put_contents($pic_link ,$image_res);
+        if($res){
+            $data['id'] = session('userid');
+            $data['head_pic'] = '/'.$pic_link;
+            $id = $this -> users -> save($data);
+            if($id){
+                ajaxReturn("success","上传成功！",$data);
+            }else{
+                ajaxReturn("error","保存失败！");
+            }
+        }else{
+            ajaxReturn("error","上传失败！");
+        }
+    }
 
 	public function curl($data,$url){
         $ch = curl_init();

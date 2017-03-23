@@ -1,44 +1,10 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1"/>
-		<link rel="stylesheet" href="car.css" />
-		<script type="text/javascript" src="jquery.js"></script>
-		<script type="text/javascript" src="car.js"></script>
-		<title>驾校列表</title>
-	</head>
-	<body>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
+<extend name="Public/header"/>
+<block name="main">
+	<volist name="schlist" id="school">
+		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray" linkto="{:U('User/bindsc',array('sid'=>$school['id']))}">
+			{$school['name']}
+			<span class="fr">({$school['city']})</span>
 		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-		<div class="list-item pad0-3 h40-lh40 borb1 bgw color-gray">
-			国泰驾校
-		</div>
-	</body>
-</html>
+	</volist>
+</block>
+<block name="footer"></block>

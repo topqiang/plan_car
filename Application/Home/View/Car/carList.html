@@ -13,7 +13,6 @@
 		</div>
 		<div class="school-select bgyellow">选择车辆</div>
 		<div class="school-cont">
-
 			<volist name="carlist" id="car">
 				<div class="school-item" linkto="{:U('Car/paycar',array('id'=>$car['id']))}">
 					<img src="{$car['pic']}"/ class="fl">
@@ -21,7 +20,7 @@
 						<p>{$car['name']}</p>
 						<p>车牌号&nbsp;&nbsp;{$car['carcode']}学</p>
 					</div>			
-					<span class="fr on">可预约</span>
+					<span class="fr <if condition='$car["istrue"]'>on</if>">可预约</span>
 				</div>
 			</volist>
 		</div>
