@@ -61,12 +61,12 @@
                                 <?php echo (date("Y/m/d",$user["ctime"])); ?>
                             </td>
                             <td>
-                                <?php if($user['istrue'] == 1): ?>已审核<?php else: ?>未审核<?php endif; ?>
+                                <?php if($user['status'] == 1): ?>已处理<?php else: ?>未处理<?php endif; ?>
                             </td>
                             <td>
-                                <a href="<?php echo U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']));?>" title="编辑">
-                                    <img src="/plancar/Public/Admin/images/icons/pencil.png" width="16" height="18" alt="编辑" />
-                                </a>
+                                <?php if($user['status'] == 0): ?><a href="<?php echo U('User/updMsg',array('id'=>$user['id']));?>" title="处理">
+                                    <img src="/plancar/Public/Admin/images/icons/pencil.png" width="16" height="18" alt="处理" />
+                                </a><?php endif; ?>
                                 <a href="###" class="del" title="删除" uid="<?php echo ($user["id"]); ?>">
                                     <img src="/plancar/Public/Admin/images/icons/cross.png" alt="删除" />
                                 </a>
@@ -100,7 +100,9 @@
         //删除类型
         $('.del').click(function(){
             if(confirm('确定要删除吗')){
-                window.location.href = $(this).next('input').val();
+                var id = $(this).attr("uid");
+
+                window.location.href = "<?php echo U('User/delMsg');?>/id/"+id;
             }
         });
     });

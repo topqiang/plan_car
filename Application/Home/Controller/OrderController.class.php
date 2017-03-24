@@ -23,7 +23,13 @@ class OrderController extends BaseController{
 
 		$user = $this -> user -> field('istrue,jschool') -> where(array('id'=>$uid)) -> select();
 		$usid = $user[0]['jschool'];
-		$count = $this -> order -> where(array('uid'=>$uid,'date'=>$date)) -> count();
+
+		$where['status'] = array('neq',9);
+		$where['status'] = array('neq',8);
+		$where['uid'] = $uid;
+		$where['date'] = $date;
+
+		$count = $this -> order -> where($where) -> count();
 
 		if (empty($usid)) {
 			ajaxReturn("error","无绑定该驾校！");

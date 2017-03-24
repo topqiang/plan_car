@@ -21,7 +21,13 @@
 
         <div class="content-search" style="height: 40px;margin: 10px 0 0 10px;">
             <form action="{:U('User/userlist')}" method="post">
-                用户名：<input type="text" name="name" class="text-input">
+                用户名：<input type="text" name="name" class="text-input" value="{$_REQUEST['name']}">
+                状态：<select name="istrue">
+                        <option value=""></option>
+                        <option value="0" <if condition="isset($_REQUEST['istrue']) and $_REQUEST['istrue'] eq 0">selected</if>>未审核</option>
+                        <option value="1" <if condition="$_REQUEST['istrue'] eq 1">selected</if>>已审核</option>
+                    </select>
+
                 <input type="submit" class="button search-btn" value="查询">
             </form>
         </div>
@@ -67,11 +73,8 @@
                                 <if condition="$user['istrue'] eq 1">已审核<else/>未审核</if>
                             </td>
                             <td>
-                                <a href="{:U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']))}" title="编辑">
-                                    <img src="__WEBPUBLIC__/Admin/images/icons/pencil.png" width="16" height="18" alt="编辑" />
-                                </a>
-                                <a href="###" class="del" title="删除" uid="{$user.id}">
-                                    <img src="__WEBPUBLIC__/Admin/images/icons/cross.png" alt="删除" />
+                                <a href="{:U('User/updUser',array('id'=>$user['id'],'istrue'=>$user['istrue']))}" title="审核">
+                                    <img src="__WEBPUBLIC__/Admin/images/icons/pencil.png" width="16" height="18" alt="审核" />
                                 </a>
                             </td>
                         </tr>
@@ -100,13 +103,5 @@
 </div>
 </body>
 <script type="text/javascript">
-    $(document).ready(function(){
-        //删除类型
-        $('.del').click(function(){
-            if(confirm('确定要删除吗')){
-                window.location.href = $(this).next('input').val();
-            }
-        });
-    });
 </script>
 </html>

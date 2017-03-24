@@ -21,7 +21,13 @@
 
         <div class="content-search" style="height: 40px;margin: 10px 0 0 10px;">
             <form action="<?php echo U('User/userlist');?>" method="post">
-                用户名：<input type="text" name="name" class="text-input">
+                用户名：<input type="text" name="name" class="text-input" value="<?php echo ($_REQUEST['name']); ?>">
+                状态：<select name="istrue">
+                        <option value=""></option>
+                        <option value="0" <?php if(isset($_REQUEST['istrue']) and $_REQUEST['istrue'] == 0): ?>selected<?php endif; ?>>未审核</option>
+                        <option value="1" <?php if($_REQUEST['istrue'] == 1): ?>selected<?php endif; ?>>已审核</option>
+                    </select>
+
                 <input type="submit" class="button search-btn" value="查询">
             </form>
         </div>
@@ -66,11 +72,8 @@
                                 <?php if($user['istrue'] == 1): ?>已审核<?php else: ?>未审核<?php endif; ?>
                             </td>
                             <td>
-                                <a href="<?php echo U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']));?>" title="编辑">
-                                    <img src="/plancar/Public/Admin/images/icons/pencil.png" width="16" height="18" alt="编辑" />
-                                </a>
-                                <a href="###" class="del" title="删除" uid="<?php echo ($user["id"]); ?>">
-                                    <img src="/plancar/Public/Admin/images/icons/cross.png" alt="删除" />
+                                <a href="<?php echo U('User/updUser',array('id'=>$user['id'],'istrue'=>$user['istrue']));?>" title="审核">
+                                    <img src="/plancar/Public/Admin/images/icons/pencil.png" width="16" height="18" alt="审核" />
                                 </a>
                             </td>
                         </tr><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -98,13 +101,5 @@
 </div>
 </body>
 <script type="text/javascript">
-    $(document).ready(function(){
-        //删除类型
-        $('.del').click(function(){
-            if(confirm('确定要删除吗')){
-                window.location.href = $(this).next('input').val();
-            }
-        });
-    });
 </script>
 </html>

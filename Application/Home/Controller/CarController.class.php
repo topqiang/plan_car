@@ -21,6 +21,9 @@ class CarController extends BaseController{
 		foreach ($res as $index => $obj) {
 			$where['cid'] = $obj['id'];
 			$where['date'] = array('in',$datenum);
+			$where['status'] = array('neq',9);
+			$where['status'] = array('neq',8);
+
 			$curcount = $this -> order -> where($where) -> count();
 			$res[$index]['istrue'] = $count > $curcount;
 		}
@@ -46,10 +49,12 @@ class CarController extends BaseController{
 		$timelist = $this -> date -> where(array('status'=>array('neq',9))) -> select();
 		$curdate = date('Y/m/d');
 		foreach ($timelist as $index => $obj) {
-			$where['cid'] = $res[0]['id'];
+			$where['cid'] = $id;
 			$where['date'] = $curdate;
 			$where['time'] = $obj['time'];
-			$count = $this -> car -> where($where) -> count();
+			$where['status'] = array('neq',9);
+			$where['status'] = array('neq',8);
+			$count = $this -> order -> where($where) -> count();
 			$timelist[$index]['istrue'] = 3 > $count;
 		}
 		$this -> assign("timelist",$timelist);
