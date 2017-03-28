@@ -2,7 +2,7 @@
 <block name="main">
 		<div class="coach-item pad3 bgw mab10">
 			<div class="coach-per ovh" linkto="{:U('User/userinfo')}">
-				<img src="{$user['head_pic']}" class="fl"/>
+				<img src="__ROOT__/{$user['head_pic']}" class="fl"/>
 				<div class="coach-word fl">
 					<p class="fs16">{$user['name']}</p>
 					<p class="fs13">{$user['phone']}</p>
@@ -29,6 +29,8 @@
 						</div>			
 					</div>
 				</volist>
+				<else/>
+				数据为空
 			</if>
 		</div>
 		<div class="driverss-foot">
