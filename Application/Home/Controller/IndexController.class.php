@@ -28,7 +28,8 @@ class IndexController extends BaseController {
         $this -> assign('citylist',$citylist);
         $this -> display();
     }
-    public function list(){
+    public function mlist(){
+
         $this -> display();
     }
     public function addmsg(){
