@@ -8,10 +8,14 @@ class UserController extends BaseController{
 		$this->user=D('Usersc');
 		$this ->users = D('User');
 		$where['id'] = session("userid");
-		$res = $this -> users -> where( $where ) -> select();
+		$res = $this -> user -> where( $where ) -> select();
 		if ($res) {
 			$this -> assign('user',$res[0]);
-		}
+		}else{
+            $res = $this -> users -> where( $where ) -> select();
+            $this -> assign('user',$res[0]);
+            
+        }
 	}
 	public function userinfo(){
 
