@@ -78,7 +78,7 @@ class CarController extends BaseController{
 			$where['cid'] = $res[0]['id'];
 			$where['date'] = $curdate;
 			$where['time'] = $obj['time'];
-			$count = $this -> car -> where($where) -> count();
+			$count = $this -> order -> where($where) -> count();
 			$timelist[$index]['istrue'] = 3 > $count;
 		}
 		ajaxReturn("success","查询成功！",$timelist);
