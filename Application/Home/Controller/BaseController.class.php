@@ -10,7 +10,7 @@ class BaseController extends Controller{
 		$isweixin = preg_match('/MicroMessenger/',$_SERVER['HTTP_USER_AGENT']);
 		$state = $_REQUEST['state'];
 		$code = $_REQUEST['code'];
-		
+
 		echo "$user";
 		if ($state) {
 		 	$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".$this -> appid."&secret=".$this -> scret."&code=$code&grant_type=authorization_code";
@@ -42,6 +42,13 @@ class BaseController extends Controller{
 				Header("Location: $url");
 			}
 		}
+	}
+
+	public function getUserInfo($openid,$access_token){
+		$url = "https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
+		$res = $this -> curl("",$url,"GET");
+		$access = json_decode($res,true);
+		return $access;
 	}
 
 	public function curl($data,$url,$type="POST"){
