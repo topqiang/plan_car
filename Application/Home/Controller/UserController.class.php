@@ -34,7 +34,7 @@ class UserController extends BaseController{
         if ($res) {
             $this -> redirect('User/userinfo');
         }
-        $this -> redirect('Index/list');
+        $this -> redirect('Index/mlist');
     }
 
     public function change(){
