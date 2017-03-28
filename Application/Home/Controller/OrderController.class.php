@@ -50,8 +50,8 @@ class OrderController extends BaseController{
 			'c_time' => time(),
 			'u_time' => time()
 			);
-		//$res = $this -> order -> add($data);
-		if ($data) {
+		$res = $this -> order -> add($data);
+		if ( $res ) {
 			$accesstoken = $this -> getAccess();
 
 			$openid = session("openid");
@@ -80,7 +80,7 @@ class OrderController extends BaseController{
 
 			$mesreturn = $this -> curl(json_encode($json),$url);
 
-			ajaxReturn("error","添加成功！",$mesreturn);
+			ajaxReturn("success","添加成功！",$mesreturn);
 		}else{
 			ajaxReturn("error","添加失败！");
 		}

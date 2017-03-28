@@ -15,7 +15,7 @@ class BaseController extends Controller{
 		 	$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".$this -> appid."&secret=".$this -> scret."&code=$code&grant_type=authorization_code";
 			$res = $this -> curl("",$url);
 			$access = json_decode($res,true);
-			S('access_token',$access['access_token'],2*60*60);
+			S('access_token',$access['access_token'],2*60*40);
 			S('refresh_token',$access['refresh_token']);
 			session('openid',$access['openid']);
 			$where['wx_id'] = session('openid');
