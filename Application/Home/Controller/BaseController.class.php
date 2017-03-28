@@ -16,7 +16,7 @@ class BaseController extends Controller{
 			$res = $this -> curl("",$url);
 			$access = json_decode($res,true);
 			S('access_token',$access['access_token'],2*60*60);
-			file_put_contents('./refresh_token.txt',$access['refresh_token']);
+			S('refresh_token',$access['refresh_token']);
 			session('openid',$access['openid']);
 			$where['wx_id'] = session('openid');
 			$muser = D('User');
@@ -57,12 +57,12 @@ class BaseController extends Controller{
 		if ( $access ) {
 			return $access;
 		}else{
-			$refresh_token = file_get_contents('./refresh_token.txt');
+			$refresh_token = S('refresh_token');
 			$url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=".$this -> appid."&grant_type=refresh_token&refresh_token=$refresh_token";
 			$res = $this -> curl("",$url);
 			$access = json_decode($res,true);
 			S('access_token',$access['access_token'],2*60*60);
-			file_put_contents('./refresh_token.txt',$access['refresh_token']);
+			S('refresh_token',$access['refresh_token']);
 			return $access['access_token'];
 		}
 		
