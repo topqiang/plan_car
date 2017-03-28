@@ -82,7 +82,7 @@
 						console.log(res);
 
 						if ( res.flag == "success" ) {
-							window.location.href = "{:U('User/userinfo')}/id/"+res.data;
+							window.location.href = "{:U('User/user')}";
 						}else{
 							layer.msg(res.message);
 						}
