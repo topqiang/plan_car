@@ -56,7 +56,11 @@ class IndexController extends BaseController {
      * 系统首页
      */
     public function school(){
-        
+        $id = session("userid");
+        $this->user=D('Usersc');
+        $res = $this -> user -> where( array('id'=>$id) ) -> select();
+        $this -> assign('user',$res[0]);
+
         $this -> assign('ip', get_client_ip());
         $this -> display();
     }
