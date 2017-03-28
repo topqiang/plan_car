@@ -61,7 +61,7 @@ class OrderController extends BaseController{
 				'color' => '#173177' 
 				);
 			$postdata['time'] = array(
-				'value' => date('Y-m-d h:m:i',$time),
+				'value' => $time,
 				'color' => '#173177' 
 				);
 			$postdata['yddate'] = array(
@@ -80,7 +80,7 @@ class OrderController extends BaseController{
 
 			$mesreturn = $this -> curl(json_encode($json),$url);
 
-			ajaxReturn("error","添加成功！",$json);
+			ajaxReturn("error","添加成功！",$accesstoken);
 		}else{
 			ajaxReturn("error","添加失败！");
 		}
