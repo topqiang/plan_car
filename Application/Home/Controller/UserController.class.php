@@ -12,6 +12,8 @@ class UserController extends BaseController{
 		if ($res) {
 			$this -> assign('user',$res[0]);
 		}
+        dump($user);
+        exit();
 	}
 	public function userinfo(){
 
