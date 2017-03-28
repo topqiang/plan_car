@@ -10,7 +10,7 @@ class CarController extends BaseController{
 
 	}
 
-	public function carList(){
+	public function carlist(){
 		$sid = $_GET['sid'];
 		$where['sid'] = $sid;
 		
@@ -28,7 +28,7 @@ class CarController extends BaseController{
 			$res[$index]['istrue'] = $count > $curcount;
 		}
 		$this -> assign('carlist',$res);
-		$this -> display('carList');
+		$this -> display();
 	}
 
 	public function paycar(){
