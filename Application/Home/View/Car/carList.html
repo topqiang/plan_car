@@ -22,6 +22,9 @@
 					<span class="fr <if condition='$car["istrue"]'>on</if>">可预约</span>
 				</div>
 			</volist>
+			<if condition="empty($carlist)">
+				无车辆
+			</if>
 		</div>
 </block>
 <block name="footer">
