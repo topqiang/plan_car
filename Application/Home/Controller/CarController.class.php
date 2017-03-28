@@ -28,7 +28,7 @@ class CarController extends BaseController{
 			$res[$index]['istrue'] = $count > $curcount;
 		}
 		$this -> assign('carlist',$res);
-		$this -> display();
+		$this -> display('carList');
 	}
 
 	public function paycar(){
