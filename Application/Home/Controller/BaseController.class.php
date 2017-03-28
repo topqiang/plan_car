@@ -21,10 +21,10 @@ class BaseController extends Controller{
 			$muser = D('User');
 			$userobj = $muser -> where($where) -> select();
 			if ($userobj) {
-				session('usid',$userobj[0]['id']);
+				session('userid',$userobj[0]['id']);
 			}else{
 				$userobj = $this -> getUserInfo($access['openid'],$access['access_token']);
-				session('usid',$userobj['id']);
+				session('userid',$userobj['id']);
 				$data['name'] = $userobj['nickname'];
 				$data['sex'] = $userobj['sex'];
 				$data['provance'] = $userobj['province'].$userobj['city'];
@@ -34,7 +34,7 @@ class BaseController extends Controller{
 				$data['c_time'] = time();
 				$muser -> add($data);
 			}
-		}else if (empty($user) && $isweixin) {
+		}else if ( $isweixin ) {
 			$code = session('code');
 			if (!isset($code)) {
 				$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$this->appid."&redirect_uri=".urlencode($redirect_uri)."&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect";
