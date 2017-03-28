@@ -4,7 +4,7 @@
 			<div class="coach-per ovh" linkto="{:U('User/userinfo')}">
 				<img src="{$user['head_pic']}" class="fl"/>
 				<div class="coach-word fl">
-					<p class="fs16">{$user['name']}</p>
+					<p class="fs16"><if condition="!empty($user['name'])">{$user['name']}<else/>{$user['nick_name']}</if></p>
 					<p class="fs13">{$user['phone']}</p>
 				</div>
 				<div class="record-next fr"></div>
