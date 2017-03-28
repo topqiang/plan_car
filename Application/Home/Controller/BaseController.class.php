@@ -10,9 +10,7 @@ class BaseController extends Controller{
 		$isweixin = preg_match('/MicroMessenger/',$_SERVER['HTTP_USER_AGENT']);
 		$state = $_REQUEST['state'];
 		$code = $_REQUEST['code'];
-
-		echo "$user";
-		if ($state) {
+		if ($state && empty($user)) {
 		 	$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".$this -> appid."&secret=".$this -> scret."&code=$code&grant_type=authorization_code";
 			$res = $this -> curl("",$url);
 			$access = json_decode($res,true);
@@ -26,16 +24,15 @@ class BaseController extends Controller{
 			}else{
 				$userobj = $this -> getUserInfo($access['openid'],$access['access_token']);
 				session('userid',$userobj['id']);
-				$data['name'] = $userobj['nickname'];
-				$data['sex'] = $userobj['sex'];
+				$data['nick_name'] = $userobj['nickname'];
 				$data['provance'] = $userobj['province'].$userobj['city'];
 				$data['status'] = 0;
 				$data['wx_id'] = $userobj['openid'];
-				$data['address'] = $userobj['headimgurl'];
+				$data['head_pic'] = $userobj['headimgurl'];
 				$data['c_time'] = time();
 				$muser -> add($data);
 			}
-		}else if ( $isweixin ) {
+		}else if ( empty($user) && $isweixin ) {
 			$code = session('code');
 			if (!isset($code)) {
 				$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$this->appid."&redirect_uri=".urlencode($redirect_uri)."&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect";
