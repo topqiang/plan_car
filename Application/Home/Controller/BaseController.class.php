@@ -6,7 +6,8 @@ class BaseController extends Controller{
 		$user = session("userid");
 		$this -> appid = "wx83c3034ad39a3d24";
 		$this -> scret = "ea225bd96b57b93dc4712f66f9e018e9";
-		$redirect_uri = "http://plancar.txunda.com".$_SERVER['REQUEST_URI'];
+		$this -> baseurl = "http://plancar.txunda.com";
+		$redirect_uri = $this -> baseurl.$_SERVER['REQUEST_URI'];
 		$isweixin = preg_match('/MicroMessenger/',$_SERVER['HTTP_USER_AGENT']);
 		$state = $_REQUEST['state'];
 		$code = $_REQUEST['code'];
@@ -15,12 +16,15 @@ class BaseController extends Controller{
 			$res = $this -> curl("",$url);
 			$access = json_decode($res,true);
 			S('access_token',$access['access_token'],2*60*60);
+			file_put_contents('./refresh_token.txt',$access['refresh_token']);
 			session('openid',$access['openid']);
 			$where['wx_id'] = session('openid');
 			$muser = D('User');
 			$userobj = $muser -> where($where) -> select();
 			if ($userobj) {
 				session('userid',$userobj[0]['id']);
+				session('username',$userobj[0]['name']);
+
 			}else{
 				$userobj = $this -> getUserInfo($access['openid'],$access['access_token']);
 				session('userid',$userobj['id']);
@@ -46,6 +50,22 @@ class BaseController extends Controller{
 		$res = $this -> curl("",$url,"GET");
 		$access = json_decode($res,true);
 		return $access;
+	}
+
+	public function getAccess(){
+		$access = S('access_token');
+		if ( $access ) {
+			return $access;
+		}else{
+			$refresh_token = file_get_contents('./refresh_token.txt');
+			$url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=".$this -> appid."&grant_type=refresh_token&refresh_token=$refresh_token";
+			$res = $this -> curl("",$url);
+			$access = json_decode($res,true);
+			S('access_token',$access['access_token'],2*60*60);
+			file_put_contents('./refresh_token.txt',$access['refresh_token']);
+			return $access['access_token'];
+		}
+		
 	}
 
 	public function curl($data,$url,$type="POST"){
