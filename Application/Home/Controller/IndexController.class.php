@@ -28,7 +28,9 @@ class IndexController extends BaseController {
         $this -> assign('citylist',$citylist);
         $this -> display();
     }
-
+    public function list(){
+        $this -> display();
+    }
     public function addmsg(){
         $tel = $_POST['tel'];
         $name = $_POST['name'];
