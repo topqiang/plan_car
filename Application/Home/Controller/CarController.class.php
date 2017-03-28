@@ -10,7 +10,7 @@ class CarController extends BaseController{
 
 	}
 
-	public function carlist(){
+	public function carList(){
 		$sid = $_GET['sid'];
 		$where['sid'] = $sid;
 		
