@@ -79,8 +79,9 @@
 					"dataType" : "json",
 					"data" : {cid:cid,sid:sid,date:date,time:time},
 					"success" : function ( res ) {
+						console.log(res);
+
 						if ( res.flag == "success" ) {
-							console.log(res);
 							window.location.href = "{:U('User/userinfo')}/id/"+res.data;
 						}else{
 							layer.msg(res.message);

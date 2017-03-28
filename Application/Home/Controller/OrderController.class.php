@@ -56,31 +56,31 @@ class OrderController extends BaseController{
 
 			$openid = session("openid");
 			$clickurl = $this -> baseurl;
-			$postdata['username' ] = array(
+			$postdata['username'] = array(
 				'value' => session("username"),
 				'color' => '#173177' 
 				);
-			$postdata['ordernum' ] = array(
+			$postdata['time'] = array(
 				'value' => date('Y-m-d h:m:i',$time),
 				'color' => '#173177' 
 				);
-			$postdata['price' ] = array(
+			$postdata['yddate'] = array(
 				'value' => date('Y-m-d h:m:i'),
 				'color' => '#173177' 
 				);
 			$json = array(
 				'touser' => $openid,
 				'url' => $this -> baseurl.U('User/userinfo'),
-				'template_id' => 'IMTokfYtmz0UNn3xHPa4O19Jy8Ld-5zTmTKLq_X6QqQ',
+				'template_id' => 'Ou3zm-6hT4aVafa-NTE5I_07jLAbvNxX9lYXGqdKIwk',
 				'topcolor' => '#FF0000',
 				'data' => $postdata
 				);
 
 			$url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accesstoken";
 
-			$mesreturn = $this -> curl(json_encode($postdata),$url);
+			$mesreturn = $this -> curl(json_encode($json),$url);
 
-			ajaxReturn("success","添加成功！",$mesreturn);
+			ajaxReturn("error","添加成功！",$mesreturn);
 		}else{
 			ajaxReturn("error","添加失败！");
 		}
