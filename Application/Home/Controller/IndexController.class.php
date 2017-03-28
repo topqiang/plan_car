@@ -57,11 +57,6 @@ class IndexController extends BaseController {
         $this -> assign('ip', get_client_ip());
         $this -> display();
     }
-
-    public function list(){
-        $this -> display();
-    }
-
     public function introduce(){
         $this -> display();
     }
