@@ -50,8 +50,8 @@ class OrderController extends BaseController{
 			'c_time' => time(),
 			'u_time' => time()
 			);
-		$res = $this -> order -> add($data);
-		if ( $res ) {
+		//$res = $this -> order -> add($data);
+		if ( $data ) {
 			$accesstoken = $this -> getAccess();
 
 			$openid = session("openid");
