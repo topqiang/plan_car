@@ -76,7 +76,7 @@ class OrderController extends BaseController{
 				'data' => $postdata
 				);
 
-			$url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accesstoken";
+			$url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
 
 			$mesreturn = $this -> curl(json_encode($json),$url);
 
