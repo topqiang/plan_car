@@ -26,7 +26,7 @@ class UserController extends BaseController{
 		$order = D('Orderusc');
 		$wher['uid'] = session('userid');
 		$orderlist = $order -> where( $wher ) -> order('c_time desc') -> select();
-        dump($orderlist);
+        dump($order -> getLastSql());
         exit();
 		$this -> assign('orderlist',$orderlist);
 		$this -> display();
