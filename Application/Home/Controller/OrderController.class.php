@@ -80,7 +80,7 @@ class OrderController extends BaseController{
 
 			$mesreturn = $this -> curl(json_encode($json),$url);
 
-			ajaxReturn("success","添加成功！",$mesreturn);
+			ajaxReturn("error","添加成功！",$mesreturn);
 		}else{
 			ajaxReturn("error","添加失败！");
 		}
