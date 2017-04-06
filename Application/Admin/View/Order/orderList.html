@@ -137,7 +137,7 @@
 				"success":function ( res ) {
 					console.log(res);
 					if(res.flag == "success"){
-						layer.open({"content":JSON.stringify(res.data)});
+						layer.open({"content":"驾校地址："+JSON.stringify(res.data.address)});
 					}else{
 						layer.msg( res.message );
 					}
