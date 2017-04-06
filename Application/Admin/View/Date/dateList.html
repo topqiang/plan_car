@@ -39,9 +39,8 @@
                         <thead>
                         <tr>
                             <th width="10%">ID</th>
-                            <th width="20%">时段</th>
-                            <th width="30%">状态</th>
-                            <th width="30%">时间</th>
+                            <th width="40%">时段</th>
+                            <th width="40%">时间</th>
                             <th width="10%">操作</th>
                         </tr>
                         </thead>
@@ -53,13 +52,6 @@
                                 <td>{$art['id']}</td>
                                 <td>
                                     {$art['time']}
-                                </td>
-                                <td>
-                                    <if condition="$art['istrue'] eq 1">
-                                        可选
-                                        <else/>
-                                        不可选
-                                    </if>
                                 </td>
                                 <td>
                                     {$art['ctime']|date='Y-m-d',###}
