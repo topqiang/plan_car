@@ -24,7 +24,10 @@
 							<span class="fr">{$order['sname']}</span>
 						</div>
 						<div class="pad10-0">
-							<p>{$order['cname']}</p>
+							<p>
+							<if condition="$order['status'] eq 8"><span class="fr">已取消</span></if>
+							{$order['cname']}
+							</p>
 							<p class="fs14 color-gray">{$order['carcode']}</p>
 						</div>			
 					</div>
