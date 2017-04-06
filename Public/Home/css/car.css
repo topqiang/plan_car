@@ -645,6 +645,9 @@ li{
 .pore{
 	position: relative;
 }
+input{
+	border: none;
+}
 .intro-txt{
 	width:100%;
 	padding:10px;
