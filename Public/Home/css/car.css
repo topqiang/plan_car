@@ -647,6 +647,9 @@ li{
 }
 input,input:focus{
 	border: none;
+	-webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
 }
 .intro-txt{
 	width:100%;
