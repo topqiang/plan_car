@@ -36,7 +36,7 @@ class CarController extends BaseController{
 
 		$res = $this -> car -> where( array('id' => $id)) -> select();
 
-		$time = time();
+		$time = time() + 24*60*60;
 		for ($i=0; $i < 3; $i++) { 
 			$date[$i] = array(
 			'y' => date('Y',$time),
