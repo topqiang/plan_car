@@ -25,6 +25,9 @@ class OrderController extends AdminBasicController{
         if ($_POST['phone']) {
             $where['phone'] = $_POST['phone'];   
         }
+        if (!empty($_SESSION['s_id'])) {
+            $where['sid'] = $_SESSION['s_id'];
+        }
         $count = $this -> ordusc -> where($where)->count();
         $page = new \Think\Page($count,15);
         $res = $this -> ordusc -> where($where) -> order('c_time desc') ->limit($page->firstRow,$page->listRows) -> select();
