@@ -84,7 +84,7 @@
 				"success":function ( res ) {
 					if ( res.flag == "success") {
 						var region = res.data;
-						var str = "";
+						var str = "<option>请选择</option>";
 						for(var index in region){
 							var obj = region[index];
 							str += "<option value='"+obj.id+"'>"+obj.region_name+"</option>";
