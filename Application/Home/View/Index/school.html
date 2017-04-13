@@ -65,7 +65,6 @@
 		        complete : function(results){
 		        	console.log(results);
 		        	$(".city0").text(results.detail.name);
-		        	window.location.href = "{:U('Index/school')}/city/"+results.detail.name;
 		        	sessionStorage.setItem('city',results.detail.name);
 		        	var latlng = results.detail.latLng;
 		        	$.ajax({
