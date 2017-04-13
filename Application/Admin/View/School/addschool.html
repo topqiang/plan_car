@@ -89,6 +89,10 @@
 							var obj = region[index];
 							str += "<option value='"+obj.id+"'>"+obj.region_name+"</option>";
 						}
+						if (!str) {
+							var city = $("option[value="+$(this).val()+"]").text();
+							$('.city').val(city);
+						}
 						$("."+classname).html(str);
 					}else{
 						alert(res.message);
