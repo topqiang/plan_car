@@ -42,7 +42,7 @@
 							<select name="regthr" class="regthr">
 								<option value="">选择区/县</option>
 							</select>
-							<input class="text-input small-input" type="text" name="city" required/>
+							<input class="city" type="hidden" name="city" required/>
 						</p>
 						<p>
 							<label>门店</label>
@@ -98,6 +98,11 @@
 		}else{
 			alert("父节点选择有误！");
 		}
+	});
+
+	$(".regthr").on('change',function () {
+		var city = $("option[value="+$(this).val()+"]").text();
+		$('.city').val(city);
 	});
 </script>
 </body>

@@ -30,7 +30,19 @@
 						</p>
 						<p>
 							<label>城市</label>
-							<input class="text-input small-input" type="text" name="city" required value="{$info.city}"/>
+							<select name="regone" class="regone" for="regtwo">
+								<option value="">选择省份</option>
+								<volist name="region" id="obj">
+									<option value="{$obj.id}">{$obj.region_name}</option>
+								</volist>
+							</select>
+							<select name="regtwo" class="regtwo" for="regthr">
+								<option value="">选择城市</option>
+							</select>
+							<select name="regthr" class="regthr">
+								<option value="{$info.regthr}">{$info.city}</option>
+							</select>
+							<input class="city" type="hidden" name="city" required value="{$info.city}"/>
 						</p>
 						<p>
 							<label>门店</label>
@@ -66,4 +78,38 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+	$(".regone,.regtwo").on('change',function() {
+		var p_id = $(this).val();
+		var classname = $(this).attr("for");
+		if (p_id) {
+			$.ajax({
+				"url":"{:U('School/getRegion')}",
+				"type":"post",
+				"dataType":"json",
+				"data":{"p_id":p_id},
+				"success":function ( res ) {
+					if ( res.flag == "success") {
+						var region = res.data;
+						var str = "";
+						for(var index in region){
+							var obj = region[index];
+							str += "<option value='"+obj.id+"'>"+obj.region_name+"</option>";
+						}
+						$("."+classname).html(str);
+					}else{
+						alert(res.message);
+					}
+				}
+			})
+		}else{
+			alert("父节点选择有误！");
+		}
+	});
+
+	$(".regthr").on('change',function () {
+		var city = $("option[value="+$(this).val()+"]").text();
+		$('.city').val(city);
+	});
+</script>
 </html>
