@@ -7,6 +7,9 @@ use Think\Controller;
 class SchoolController extends AdminBasicController{
 	public function _initialize(){
 		$this -> school = D("School");
+		$regionwhere['region_type'] = 1;
+		$city0 = D('Region') -> where($regionwhere) -> select();
+		$this -> assign('region',$city0);
 	}
 
 	public function schoollist(){
