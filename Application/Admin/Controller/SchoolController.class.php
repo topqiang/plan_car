@@ -77,9 +77,6 @@ class SchoolController extends AdminBasicController{
 				'id' => $_POST['id'],
 				'name' => $_POST['name'],
 				'city' => $_POST['city'],
-				'regone' => $_POST['regone'],
-				'regtwo' => $_POST['regtwo'],
-				'regthr' => $_POST['regthr'],
 				'username' => $_POST['username'],
 				'tel' => $_POST['tel'],
 				'address' => $_POST['address'],
@@ -87,6 +84,15 @@ class SchoolController extends AdminBasicController{
 			);
 			if (!empty($_POST['password'])) {
 				$data['password'] = md5($_POST['password']);
+			}
+			if (!empty($_POST['regone'])) {
+				$data['regone'] = md5($_POST['regone']);
+			}
+			if (!empty($_POST['regtwo'])) {
+				$data['regtwo'] = md5($_POST['regtwo']);
+			}
+			if (!empty($_POST['regthr'])) {
+				$data['regthr'] = md5($_POST['regthr']);
 			}
 			if($upload_res['flag']=='success')$data['logo']="Uploads/shoplogo/".$upload_res['result'];
 			$result = $this -> school ->save($data);
@@ -110,6 +116,9 @@ class SchoolController extends AdminBasicController{
 				'password' => md5('123456'),
 				'username' => $_POST['username'],
 				'tel' => $_POST['tel'],
+				'regone' => $_POST['regone'],
+				'regtwo' => $_POST['regtwo'],
+				'regthr' => $_POST['regthr'],
 				'address' => $_POST['address'],
 				'ctime' => time(),
 				'utime' => time(),
