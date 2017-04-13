@@ -64,7 +64,7 @@
 		    citylocation = new qq.maps.CityService({
 		        complete : function(results){
 		        	console.log(results);
-		        	results.detail.name;
+		        	$(".city0").text(results.detail.name);
 		        }
 		    });
 		}
