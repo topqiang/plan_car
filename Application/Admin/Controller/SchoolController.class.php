@@ -8,7 +8,8 @@ class SchoolController extends AdminBasicController{
 	public function _initialize(){
 		$this -> school = D("School");
 		$regionwhere['region_type'] = 1;
-		$city0 = D('Region') -> where($regionwhere) -> select();
+		$this -> region = D('Region');
+		$city0 = $this -> region -> where($regionwhere) -> select();
 		$this -> assign('region',$city0);
 	}
 
@@ -33,6 +34,18 @@ class SchoolController extends AdminBasicController{
 		$this->assign("list",$list);
 		$this->display();
 	}
+
+	public function getRegion(){
+		$parentid = $_POST['p_id'];
+		if ($parentid) {
+			$where['parent_id'] = $parent_id;
+			$city0 = $this -> region -> where($regionwhere) -> select();
+			echo json_encode(array('flag' => 'success','message' => '请求成功！','data' => $city0));
+			exit();
+		}else{
+			echo json_encode(array('flag' => 'error','message' => '选择有误！'));
+		}
+	} 
 
 	public function schooldel(){
 		$id = $_GET['id'];
