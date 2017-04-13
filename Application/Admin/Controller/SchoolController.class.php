@@ -38,7 +38,7 @@ class SchoolController extends AdminBasicController{
 	public function getRegion(){
 		$parentid = $_POST['p_id'];
 		if ($parentid) {
-			$where['parent_id'] = $parent_id;
+			$where['parent_id'] = $parentid;
 			$city0 = $this -> region -> where($where) -> select();
 			echo json_encode(array('flag' => 'success','message' => '请求成功！','data' => $city0));
 			exit();
