@@ -43,6 +43,9 @@ class BaseController extends Controller{
 				Header("Location: $url");
 			}
 		}
+		$new = new \Think\Jssdk($this -> appid,$this -> scret);
+        $return = $new->getSignPackage();
+        $this->assign('parameter',$return);
 	}
 
 	public function getUserInfo($openid,$access_token){
