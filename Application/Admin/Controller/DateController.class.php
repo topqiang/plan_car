@@ -11,6 +11,7 @@ class DateController extends AdminBasicController{
     public $article = '';
     public function _initialize(){
         $this-> date = D('Date');
+        $this-> region = D('Region');
         header("Content-type: text/html; charset=utf-8");
     }
     /**
@@ -20,6 +21,17 @@ class DateController extends AdminBasicController{
         $where['status'] = array('neq',9);
 
         $art_result = $this -> date -> where($where) -> select();
+        $this->assign('datelist',$art_result);
+        $this->display();
+    }
+
+
+    /**
+     * 菜单列表
+     */
+    public function regionList(){
+        $where['region_type'] = 3;
+        $art_result = $this -> region -> where($where) -> select();
         $this->assign('datelist',$art_result);
         $this->display();
     }
