@@ -51,24 +51,7 @@
 <block name="footer">
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-	<if condition="empty($_REQUEST['city']) AND false">
-		<script>
-			var citylocation,map,marker = null;
-			var init = function() {
-			    var center = new qq.maps.LatLng(39.916527,116.397128);
-			    map = new qq.maps.Map(document.getElementById('container'),{
-			        center: center,
-			        zoom: 13
-			    });
-			    //调用城市服务信息
-			    citylocation = new qq.maps.CityService({
-			        complete : function(results){
-			        	console.log(results);
-			        }
-			    });
-			}
-		</script>
-	</if>
+	<if condition="empty($_REQUEST['city'])">
 	<script>
 		var citylocation,map,marker = null;
 		var init = function() {
@@ -81,6 +64,7 @@
 		    citylocation = new qq.maps.CityService({
 		        complete : function(results){
 		        	console.log(results);
+		        	results.detail.name;
 		        }
 		    });
 		}
@@ -107,4 +91,5 @@
             });
         });
 	</script>
+	</if>
 </block>
