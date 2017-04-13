@@ -8,7 +8,7 @@ class SchoolController extends AdminBasicController{
 	public function _initialize(){
 		$this -> school = D("School");
 		$regionwhere['region_type'] = 1;
-		$this -> region = D('Region');
+		$this -> region = M('Region');
 		$city0 = $this -> region -> where($regionwhere) -> select();
 		$this -> assign('region',$city0);
 	}
@@ -39,7 +39,7 @@ class SchoolController extends AdminBasicController{
 		$parentid = $_POST['p_id'];
 		if ($parentid) {
 			$where['parent_id'] = $parent_id;
-			$city0 = $this -> region -> where($regionwhere) -> select();
+			$city0 = $this -> region -> where($where) -> select();
 			echo json_encode(array('flag' => 'success','message' => '请求成功！','data' => $city0));
 			exit();
 		}else{
