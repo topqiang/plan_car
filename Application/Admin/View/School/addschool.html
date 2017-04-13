@@ -90,7 +90,7 @@
 							str += "<option value='"+obj.id+"'>"+obj.region_name+"</option>";
 						}
 						if (!str) {
-							var city = $("option[value="+$(this).val()+"]").text();
+							var city = $("option[value="+p_id+"]").text();
 							$('.city').val(city);
 						}
 						$("."+classname).html(str);
