@@ -53,31 +53,38 @@
 <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 	<if condition="empty($_REQUEST['city']) AND false">
 		<script>
-			$(function () {
-				var citylocation,map,marker = null;
-	            var init = function() {
-	                var center = new qq.maps.LatLng(39.916527,116.397128);
-	                map = new qq.maps.Map(document.getElementById('container'),{
-	                    center: center,
-	                    zoom: 13
-	                });
-	                //获取  城市位置信息查询 接口  
-	                citylocation = new qq.maps.CityService({
-	                    //设置地图
-	                    map : map,
-
-	                    complete : function(results){
-	                        console.log(results);
-	                        $(".city0").text(results.detail.name);
-	                    }
-	                });
-	            }
-	            init();
-	            citylocation.searchCityByIP("{$ip}");
-			});
+			var citylocation,map,marker = null;
+			var init = function() {
+			    var center = new qq.maps.LatLng(39.916527,116.397128);
+			    map = new qq.maps.Map(document.getElementById('container'),{
+			        center: center,
+			        zoom: 13
+			    });
+			    //调用城市服务信息
+			    citylocation = new qq.maps.CityService({
+			        complete : function(results){
+			        	console.log(results);
+			        }
+			    });
+			}
 		</script>
 	</if>
 	<script>
+		var citylocation,map,marker = null;
+		var init = function() {
+		    var center = new qq.maps.LatLng(39.916527,116.397128);
+		    map = new qq.maps.Map(document.getElementById('container'),{
+		        center: center,
+		        zoom: 13
+		    });
+		    //调用城市服务信息
+		    citylocation = new qq.maps.CityService({
+		        complete : function(results){
+		        	console.log(results);
+		        }
+		    });
+		}
+
 		wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: '{$parameter["appId"]}', // 必填，公众号的唯一标识
@@ -87,12 +94,15 @@
             jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         wx.ready(function(){
+        	init();
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                 success: function (res) {
                     var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                     var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                     console.log(res);
+                    var latLng = new qq.maps.LatLng(latitude, longitude);
+			    	citylocation.searchCityByLatLng(latLng);
                 }
             });
         });
