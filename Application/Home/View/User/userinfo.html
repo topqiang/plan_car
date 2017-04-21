@@ -74,6 +74,9 @@
 
 	$(".subbtn").on('click',function () {
 		layer.msg("请耐心等待吧！");
+		setTimeout(function () {
+			window.location.href = "{:U('Index/school')}";
+		},2000);
 	});
 
 
